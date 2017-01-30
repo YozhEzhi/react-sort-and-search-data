@@ -1,9 +1,7 @@
-'use strict';
-
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
+const register = require('./gulp/utils/register');
 const config = require('./gulp/configs/main.config');
-const register = require(`./gulp/utils/register`);
 
 register(gulp, plugins, config)([
   'build-js',

@@ -1,36 +1,44 @@
 import React, { Component } from 'react';
-import Button from './components/Button';
+import SearchBar from './components/SearchBar';
+import SortByNameButton from './components/SortByNameButton';
+import SortByAgeButton from './components/SortByAgeButton';
+import Thumbnail from './components/Thumbnail';
+import Table from './components/Table';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      phrase: 'Нажми на кнопку!',
-      count: 0
-    };
+
+    this.updateBtn = this.updateBtn.bind(this);
+  }
+
+  filter(term) {
+    console.log(term);
   }
 
   updateBtn() {
-    const phrases = [
-      'Если дойдёшь до тысячи, то сразу научищься реакту',
-      'ой, всё!', 'Ты нажал кнопку столько раз, что обязан на ней жениться',
-      'coub про кота-джедая: http://coub.com/view/spxn',
-      'Дальнобойщики на дороге ярости: http://coub.com/view/6h0dy',
-      'Реакция коллег на ваш код: http://coub.com/view/5rjjw',
-      'Енот ворует еду: http://coub.com/view/xi3cio',
-      'Российский дизайн: http://coub.com/view/16adw5i0'
-    ];
-    this.setState({
-      count: this.state.count + 1,
-      phrase: phrases[parseInt(Math.random() * phrases.length, 10)]
-    });
+    console.log('Clicked');
   }
 
   render() {
     return (
       <div className="container app">
-        <Button count={this.state.count} update={this.updateBtn.bind(this)} />
-        <p style={{ marginTop: '2rem' }}>{this.state.phrase}</p>
+        <SearchBar onFilter={this.filter} />
+
+        <div className="toolbar">
+          <SortByNameButton />
+          <SortByAgeButton update={this.updateBtn} />
+        </div>
+
+        <div className="row">
+          <div className="col-sm-4 col-md-3">
+            <Thumbnail />
+          </div>
+
+          <div className="col-sm-8 col-md-9">
+            <Table />
+          </div>
+        </div>
       </div>
     );
   }
