@@ -11,15 +11,15 @@ const Thumbnail = ({ user }) => {
         <table className="user-info table table-responsive">
           <tbody>
             <tr>
-              <td>Age:</td>
+              <td>Age: </td>
               <td>{user.age}</td>
             </tr>
             <tr>
-              <td>Favorite animal:</td>
+              <td>Favorite animal: </td>
               <td>{user.image}</td>
             </tr>
             <tr>
-              <td>Phone:</td>
+              <td>Phone: </td>
               <td>
                 <span>8 </span>
                 <span>{user.phone}</span>
@@ -29,7 +29,7 @@ const Thumbnail = ({ user }) => {
         </table>
 
         <p>
-          <strong>Favorite phrase:</strong>
+          <strong>Favorite phrase: </strong>
           {user.phrase}
         </p>
       </div>
