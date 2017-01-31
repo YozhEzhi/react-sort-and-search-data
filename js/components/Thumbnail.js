@@ -3,7 +3,7 @@ import React from 'react';
 const Thumbnail = ({ user }) => {
   return (
     <div className="thumbnail text-center">
-      <img src={`/images/${user.image}.svg`} alt={user.name} />
+      <img src={`./images/${user.image}.svg`} alt={user.name} />
 
       <div className="thumbnail-caption">
         <h3>{user.name}</h3>

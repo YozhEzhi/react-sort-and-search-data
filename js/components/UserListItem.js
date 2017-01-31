@@ -4,7 +4,7 @@ const UserListItem = ({ user, isSelected, onUserSelect }) => {
   return (
     <tr onClick={() => onUserSelect(user)} className={isSelected}>
       <td>
-        <img src={`/images/${user.image}.svg`} className="user-image img-responsive" alt={user.name} />
+        <img src={`./images/${user.image}.svg`} className="user-image img-responsive" alt={user.name} />
       </td>
       <td>{user.name}</td>
       <td>{user.age}</td>
