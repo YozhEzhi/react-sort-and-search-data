@@ -4,7 +4,7 @@ class SortByNameButton extends Component {
   constructor(props) {
     super(props);
 
-    this.toggleClass = this.toggleClass.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.sortClasses = [
       'icon fa fa-sort-alpha-asc',
@@ -16,15 +16,16 @@ class SortByNameButton extends Component {
     };
   }
 
-  toggleClass() {
+  handleClick() {
     const classes = this.state.iconClass;
     const iconClass = classes.includes('asc') ? this.sortClasses[1] : this.sortClasses[0];
     this.setState({ iconClass });
+    this.props.onFilterByName();
   }
 
   render() {
     return (
-      <button className="btn btn-default" onClick={this.toggleClass}>
+      <button className="btn btn-default" onClick={this.handleClick}>
         <i className={this.state.iconClass} /> Sort by name
       </button>
     );

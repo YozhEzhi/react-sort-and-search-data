@@ -1,23 +1,37 @@
 import React, { Component } from 'react';
 import SearchBar from './components/SearchBar';
-import SortByNameButton from './components/SortByNameButton';
-import SortByAgeButton from './components/SortByAgeButton';
+import UserList from './components/UserList';
 import Thumbnail from './components/Thumbnail';
-import Table from './components/Table';
+import Toolbar from './components/Toolbar';
+
+const users = require('json!../public/data.json');
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.updateBtn = this.updateBtn.bind(this);
+    this.state = {
+      users,
+      selectedUser: users[0],
+    };
+
+    this.changeSelectedUser = this.changeSelectedUser.bind(this);
   }
 
   filter(term) {
     console.log(term);
   }
 
-  updateBtn() {
-    console.log('Clicked');
+  filterByName() {
+    console.log('Filtering by name');
+  }
+
+  filterByAge() {
+    console.log('Filtering by age');
+  }
+
+  changeSelectedUser(selectedUser) {
+    this.setState({ selectedUser });
   }
 
   render() {
@@ -26,17 +40,23 @@ export default class App extends Component {
         <SearchBar onFilter={this.filter} />
 
         <div className="toolbar">
-          <SortByNameButton />
-          <SortByAgeButton update={this.updateBtn} />
+          <Toolbar
+            onFilterByName={this.filterByName}
+            onFilterByAge={this.filterByAge}
+          />
         </div>
 
         <div className="row">
           <div className="col-sm-4 col-md-3">
-            <Thumbnail />
+            <Thumbnail user={this.state.selectedUser} />
           </div>
 
           <div className="col-sm-8 col-md-9">
-            <Table />
+            <UserList
+              onUserSelect={this.changeSelectedUser}
+              users={this.state.users}
+              selectedUser={this.state.selectedUser}
+            />
           </div>
         </div>
       </div>
