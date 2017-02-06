@@ -4,32 +4,36 @@ class SortByAgeButton extends Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
-
-    this.sortClasses = [
-      'icon fa fa-sort-numeric-asc',
-      'icon fa fa-sort-numeric-desc',
-    ];
-
+    this.icoDefaultClass = 'asc';
     this.state = {
-      iconClass: this.sortClasses[0],
+      iconClass: props.icoClass || this.icoDefaultClass,
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    const classes = this.state.iconClass;
-    const iconClass = classes.includes('asc') ? this.sortClasses[1] : this.sortClasses[0];
-    this.setState({ iconClass });
     this.props.onFilterByAge();
+    this.setState({
+      iconClass: this.props.icoClass || this.icoDefaultClass,
+    });
   }
 
   render() {
     return (
       <button className="btn btn-default" onClick={this.handleClick}>
-        <i className={this.state.iconClass} /> Sort by age
+        <i className={`icon fa fa-sort-numeric-${this.state.iconClass}`} /> Sort by name
       </button>
     );
   }
 }
+
+SortByAgeButton.propTypes = {
+  icoClass: React.PropTypes.string,
+  onFilterByAge: React.PropTypes.func.isRequired,
+};
+
+SortByAgeButton.defaultProps = {
+  icoClass: 'asc',
+};
 
 export default SortByAgeButton;

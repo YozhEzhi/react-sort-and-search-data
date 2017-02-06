@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+
 import SearchBar from './components/SearchBar';
-import UserList from './components/UserList';
 import Thumbnail from './components/Thumbnail';
 import Toolbar from './components/Toolbar';
+import UserList from './components/UserList';
 
 const users = require('json!../public/data.json');
 
@@ -11,23 +12,56 @@ export default class App extends Component {
     super(props);
 
     this.state = {
+      sortedByName: null,
+      sortedByAge: null,
       users,
       selectedUser: users[0],
     };
 
     this.changeSelectedUser = this.changeSelectedUser.bind(this);
+    this.filterByAge = this.filterByAge.bind(this);
+    this.filterByName = this.filterByName.bind(this);
   }
 
   filter(term) {
     console.log(term);
   }
 
+  sortUsers(users, param, reversed = false) {
+    users.sort((a, b) => (a[param] > b[param]) ? 1 : -1);
+    return reversed ? users.reverse() : users;
+  }
+
   filterByName() {
-    console.log('Filtering by name');
+    if (this.state.sortedByName === 'desc') {
+      this.setState({
+        sortedByName: 'asc',
+        users: this.sortUsers(this.state.users, 'name', true),
+        selectedUser: users[0],
+      });
+    } else {
+      this.setState({
+        sortedByName: 'desc',
+        users: this.sortUsers(this.state.users, 'name'),
+        selectedUser: users[0],
+      });
+    }
   }
 
   filterByAge() {
-    console.log('Filtering by age');
+    if (this.state.sortedByAge === 'desc') {
+      this.setState({
+        sortedByAge: 'asc',
+        users: this.sortUsers(this.state.users, 'age', true),
+        selectedUser: users[0],
+      });
+    } else {
+      this.setState({
+        sortedByAge: 'desc',
+        users: this.sortUsers(this.state.users, 'age'),
+        selectedUser: users[0],
+      });
+    }
   }
 
   changeSelectedUser(selectedUser) {
@@ -41,6 +75,7 @@ export default class App extends Component {
 
         <div className="toolbar">
           <Toolbar
+            icoClass={this.state.sortedByName}
             onFilterByName={this.filterByName}
             onFilterByAge={this.filterByAge}
           />
