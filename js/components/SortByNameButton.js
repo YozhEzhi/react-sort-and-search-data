@@ -12,7 +12,7 @@ class SortByNameButton extends Component {
   }
 
   handleClick() {
-    this.props.onFilterByName();
+    this.props.onSortByName();
     this.setState({
       iconClass: this.props.icoClass || this.icoDefaultClass,
     });
@@ -29,7 +29,7 @@ class SortByNameButton extends Component {
 
 SortByNameButton.propTypes = {
   icoClass: React.PropTypes.string,
-  onFilterByName: React.PropTypes.func.isRequired,
+  onSortByName: React.PropTypes.func.isRequired,
 };
 
 SortByNameButton.defaultProps = {

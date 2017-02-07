@@ -12,7 +12,7 @@ class SortByAgeButton extends Component {
   }
 
   handleClick() {
-    this.props.onFilterByAge();
+    this.props.onSortByAge();
     this.setState({
       iconClass: this.props.icoClass || this.icoDefaultClass,
     });
@@ -21,7 +21,7 @@ class SortByAgeButton extends Component {
   render() {
     return (
       <button className="btn btn-default" onClick={this.handleClick}>
-        <i className={`icon fa fa-sort-numeric-${this.state.iconClass}`} /> Sort by name
+        <i className={`icon fa fa-sort-numeric-${this.state.iconClass}`} /> Sort by age
       </button>
     );
   }
@@ -29,7 +29,7 @@ class SortByAgeButton extends Component {
 
 SortByAgeButton.propTypes = {
   icoClass: React.PropTypes.string,
-  onFilterByAge: React.PropTypes.func.isRequired,
+  onSortByAge: React.PropTypes.func.isRequired,
 };
 
 SortByAgeButton.defaultProps = {

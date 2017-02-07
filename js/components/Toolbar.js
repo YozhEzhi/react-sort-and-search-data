@@ -2,19 +2,19 @@ import React from 'react';
 import SortByAgeButton from './SortByAgeButton';
 import SortByNameButton from './SortByNameButton';
 
-const Toolbar = ({ icoClass, onFilterByAge, onFilterByName }) => {
+const Toolbar = ({ icoClass, onSortByAge, onSortByName }) => {
   return (
     <div>
-      <SortByNameButton icoClass={icoClass} onFilterByName={onFilterByName} />
-      <SortByAgeButton icoClass={icoClass} onFilterByAge={onFilterByAge} />
+      <SortByNameButton icoClass={icoClass} onSortByName={onSortByName} />
+      <SortByAgeButton icoClass={icoClass} onSortByAge={onSortByAge} />
     </div>
   );
 };
 
 Toolbar.propTypes = {
   icoClass: React.PropTypes.string,
-  onFilterByAge: React.PropTypes.func.isRequired,
-  onFilterByName: React.PropTypes.func.isRequired,
+  onSortByAge: React.PropTypes.func.isRequired,
+  onSortByName: React.PropTypes.func.isRequired,
 };
 
 Toolbar.defaultProps = {

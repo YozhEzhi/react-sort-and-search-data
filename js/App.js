@@ -5,63 +5,62 @@ import Thumbnail from './components/Thumbnail';
 import Toolbar from './components/Toolbar';
 import UserList from './components/UserList';
 
-const users = require('json!../public/data.json');
+const usersSrc = require('json!../public/data.json');
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
+    this.users = Array.from(usersSrc);
+
     this.state = {
       sortedByName: null,
       sortedByAge: null,
-      users,
-      selectedUser: users[0],
+      users: this.users,
+      selectedUser: this.users[0],
     };
 
     this.changeSelectedUser = this.changeSelectedUser.bind(this);
-    this.filterByAge = this.filterByAge.bind(this);
-    this.filterByName = this.filterByName.bind(this);
+    this.filter = this.filter.bind(this);
+    this.sortByAge = this.sortByAge.bind(this);
+    this.sortByName = this.sortByName.bind(this);
   }
 
   filter(term) {
-    console.log(term);
+    const filteredUsers = Array.from(this.users).filter(item => item.name.includes(term));
+
+    this.setState({
+      sortedByName: 'asc',
+      users: filteredUsers,
+      selectedUser: this.users[0],
+    });
   }
 
-  sortUsers(users, param, reversed = false) {
-    users.sort((a, b) => (a[param] > b[param]) ? 1 : -1);
-    return reversed ? users.reverse() : users;
+  sortUsers(usersArr, param, reversed) {
+    const sortedUsers = Array.from(usersArr).sort((a, b) => (a[param] > b[param]) ? 1 : -1);
+    return reversed ? sortedUsers.reverse() : sortedUsers;
   }
 
-  filterByName() {
-    if (this.state.sortedByName === 'desc') {
-      this.setState({
-        sortedByName: 'asc',
-        users: this.sortUsers(this.state.users, 'name', true),
-        selectedUser: users[0],
-      });
-    } else {
-      this.setState({
-        sortedByName: 'desc',
-        users: this.sortUsers(this.state.users, 'name'),
-        selectedUser: users[0],
-      });
-    }
+  sortByName() {
+    const reversed = (this.state.sortedByName === 'asc');
+    const sorting = reversed ? 'desc' : 'asc';
+
+    this.setState({
+      sortedByName: sorting,
+      users: this.sortUsers(this.users, 'name', reversed),
+      selectedUser: this.users[0],
+    });
   }
 
-  filterByAge() {
-    if (this.state.sortedByAge === 'desc') {
-      this.setState({
-        sortedByAge: 'asc',
-        users: this.sortUsers(this.state.users, 'age', true),
-        selectedUser: users[0],
-      });
-    } else {
-      this.setState({
-        sortedByAge: 'desc',
-        users: this.sortUsers(this.state.users, 'age'),
-        selectedUser: users[0],
-      });
-    }
+  sortByAge() {
+    const reversed = (this.state.sortedByAge === 'asc');
+    const sorting = reversed ? 'desc' : 'asc';
+
+    this.setState({
+      sortedByAge: sorting,
+      users: this.sortUsers(this.users, 'age', reversed),
+      selectedUser: this.users[0],
+    });
   }
 
   changeSelectedUser(selectedUser) {
@@ -76,17 +75,17 @@ export default class App extends Component {
         <div className="toolbar">
           <Toolbar
             icoClass={this.state.sortedByName}
-            onFilterByName={this.filterByName}
-            onFilterByAge={this.filterByAge}
+            onSortByName={this.sortByName}
+            onSortByAge={this.sortByAge}
           />
         </div>
 
         <div className="row">
-          <div className="col-sm-4 col-md-3">
+          <div className="col-sm-4">
             <Thumbnail user={this.state.selectedUser} />
           </div>
 
-          <div className="col-sm-8 col-md-9">
+          <div className="col-sm-8">
             <UserList
               onUserSelect={this.changeSelectedUser}
               users={this.state.users}
