@@ -1,65 +1,79 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import SearchBar from './components/SearchBar';
 import Thumbnail from './components/Thumbnail';
 import Toolbar from './components/Toolbar';
 import UserList from './components/UserList';
 
-const usersSrc = require('json!../public/data.json');
-
 export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.users = Array.from(usersSrc);
-
     this.state = {
       sortedByName: null,
       sortedByAge: null,
-      users: this.users,
-      selectedUser: this.users[0],
+      users: null,
+      searchData: null,
+      selectedUser: null,
     };
 
+    this.getData('./data.json');
     this.changeSelectedUser = this.changeSelectedUser.bind(this);
     this.filter = this.filter.bind(this);
     this.sortByAge = this.sortByAge.bind(this);
     this.sortByName = this.sortByName.bind(this);
   }
 
+  getData(data) {
+    fetch(data)
+      .then((response) => {
+        return response.json();
+      })
+      .then(json => this.setState({
+        users: json,
+        searchData: json,
+        selectedUser: json[0],
+      }))
+      .catch(error => console.log(error));
+  }
+
   filter(term) {
-    const filteredUsers = Array.from(this.users).filter(item => item.name.includes(term));
+    const searchData = this.state.searchData;
+    const users = searchData.filter(item => item.name.toLowerCase().includes(term));
 
     this.setState({
       sortedByName: 'asc',
-      users: filteredUsers,
-      selectedUser: this.users[0],
+      users,
+      selectedUser: users[0],
     });
   }
 
   sortUsers(usersArr, param, reversed) {
-    const sortedUsers = Array.from(usersArr).sort((a, b) => (a[param] > b[param]) ? 1 : -1);
+    const sortedUsers = usersArr.sort((a, b) => (a[param] > b[param]) ? 1 : -1);
     return reversed ? sortedUsers.reverse() : sortedUsers;
   }
 
   sortByName() {
     const reversed = (this.state.sortedByName === 'asc');
     const sorting = reversed ? 'desc' : 'asc';
+    const users = this.sortUsers(this.state.users, 'name', reversed);
 
     this.setState({
       sortedByName: sorting,
-      users: this.sortUsers(this.users, 'name', reversed),
-      selectedUser: this.users[0],
+      users,
+      selectedUser: users[0],
     });
   }
 
   sortByAge() {
     const reversed = (this.state.sortedByAge === 'asc');
     const sorting = reversed ? 'desc' : 'asc';
+    const users = this.sortUsers(this.state.users, 'age', reversed);
 
     this.setState({
       sortedByAge: sorting,
-      users: this.sortUsers(this.users, 'age', reversed),
-      selectedUser: this.users[0],
+      users,
+      selectedUser: users[0],
     });
   }
 
@@ -68,6 +82,8 @@ export default class App extends Component {
   }
 
   render() {
+    if (!this.state.users) return (<h3>Loading...</h3>);
+
     return (
       <div className="container app">
         <SearchBar onFilter={this.filter} />

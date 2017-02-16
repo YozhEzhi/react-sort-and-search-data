@@ -2,15 +2,15 @@ module.exports = {
   paths: {
     sass: './sass/**/*.scss',
     entry: './js/index.js',
-    js: './js/**/*.js',
+    js: './js/**/*.jsx',
     html: './*.html',
     dist: './public',
-    images: './images/**/*'
+    images: './images/**/*',
   },
   output: {
     js: 'js',
     css: 'css',
-    images: 'images'
+    images: 'images',
   },
-  production: false
+  production: false,
 };
