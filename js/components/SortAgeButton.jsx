@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class SortByAgeButton extends Component {
+class SortAgeButton extends Component {
   constructor(props) {
     super(props);
 
@@ -27,13 +27,13 @@ class SortByAgeButton extends Component {
   }
 }
 
-SortByAgeButton.propTypes = {
+SortAgeButton.propTypes = {
   icoClass: React.PropTypes.string,
   onSortByAge: React.PropTypes.func.isRequired,
 };
 
-SortByAgeButton.defaultProps = {
+SortAgeButton.defaultProps = {
   icoClass: 'asc',
 };
 
-export default SortByAgeButton;
+export default SortAgeButton;

@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import SearchBar from './components/SearchBar';
 import Thumbnail from './components/Thumbnail';
 import Toolbar from './components/Toolbar';
 import UserList from './components/UserList';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -26,15 +26,13 @@ export default class App extends Component {
 
   getData(data) {
     fetch(data)
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then(json => this.setState({
         users: json,
         searchData: json,
         selectedUser: json[0],
       }))
-      .catch(error => console.log(error));
+      .catch(error => console.error(error));
   }
 
   filter(term) {
@@ -113,3 +111,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;

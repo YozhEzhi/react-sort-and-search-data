@@ -1,12 +1,12 @@
 import React from 'react';
-import SortByAgeButton from './SortByAgeButton';
-import SortByNameButton from './SortByNameButton';
+import SortAgeButton from './SortAgeButton';
+import SortNameButton from './SortNameButton';
 
 const Toolbar = ({ icoClass, onSortByAge, onSortByName }) => {
   return (
     <div>
-      <SortByNameButton icoClass={icoClass} onSortByName={onSortByName} />
-      <SortByAgeButton icoClass={icoClass} onSortByAge={onSortByAge} />
+      <SortNameButton icoClass={icoClass} onSortByName={onSortByName} />
+      <SortAgeButton icoClass={icoClass} onSortByAge={onSortByAge} />
     </div>
   );
 };

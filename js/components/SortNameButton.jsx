@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class SortByNameButton extends Component {
+class SortNameButton extends Component {
   constructor(props) {
     super(props);
 
@@ -27,13 +27,13 @@ class SortByNameButton extends Component {
   }
 }
 
-SortByNameButton.propTypes = {
+SortNameButton.propTypes = {
   icoClass: React.PropTypes.string,
   onSortByName: React.PropTypes.func.isRequired,
 };
 
-SortByNameButton.defaultProps = {
+SortNameButton.defaultProps = {
   icoClass: 'asc',
 };
 
-export default SortByNameButton;
+export default SortNameButton;

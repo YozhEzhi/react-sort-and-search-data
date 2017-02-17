@@ -4,7 +4,11 @@ const UserListItem = ({ user, isSelected, onUserSelect }) => {
   return (
     <tr onClick={() => onUserSelect(user)} className={isSelected}>
       <td>
-        <img src={`./images/${user.image}.svg`} className="user-image img-responsive" alt={user.name} />
+        <img
+          src={`./images/${user.image}.svg`}
+          className="user-image img-responsive"
+          alt={user.name}
+        />
       </td>
       <td>{user.name}</td>
       <td>{user.age}</td>
@@ -14,6 +18,12 @@ const UserListItem = ({ user, isSelected, onUserSelect }) => {
       </td>
     </tr>
   );
+};
+
+UserListItem.propTypes = {
+  isSelected: React.PropTypes.string.isRequired,
+  onUserSelect: React.PropTypes.func.isRequired,
+  user: React.PropTypes.object.isRequired,
 };
 
 export default UserListItem;
