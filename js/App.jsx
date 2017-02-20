@@ -18,7 +18,7 @@ class App extends Component {
     };
 
     this.getData('./data.json');
-    this.changeSelectedUser = this.changeSelectedUser.bind(this);
+    this.selectUser = this.selectUser.bind(this);
     this.filter = this.filter.bind(this);
     this.sortByAge = this.sortByAge.bind(this);
     this.sortByName = this.sortByName.bind(this);
@@ -26,7 +26,7 @@ class App extends Component {
 
   getData(data) {
     fetch(data)
-      .then((response) => response.json())
+      .then(response => response.json())
       .then(json => this.setState({
         users: json,
         searchData: json,
@@ -36,8 +36,8 @@ class App extends Component {
   }
 
   filter(term) {
-    const searchData = this.state.searchData;
-    const users = searchData.filter(item => item.name.toLowerCase().includes(term));
+    const data = [...this.state.searchData];
+    const users = data.filter(item => item.name.toLowerCase().includes(term));
 
     this.setState({
       sortedByName: 'asc',
@@ -54,7 +54,7 @@ class App extends Component {
   sortByName() {
     const reversed = (this.state.sortedByName === 'asc');
     const sorting = reversed ? 'desc' : 'asc';
-    const users = this.sortUsers(this.state.users, 'name', reversed);
+    const users = this.sortUsers([...this.state.users], 'name', reversed);
 
     this.setState({
       sortedByName: sorting,
@@ -66,7 +66,7 @@ class App extends Component {
   sortByAge() {
     const reversed = (this.state.sortedByAge === 'asc');
     const sorting = reversed ? 'desc' : 'asc';
-    const users = this.sortUsers(this.state.users, 'age', reversed);
+    const users = this.sortUsers([...this.state.users], 'age', reversed);
 
     this.setState({
       sortedByAge: sorting,
@@ -75,7 +75,7 @@ class App extends Component {
     });
   }
 
-  changeSelectedUser(selectedUser) {
+  selectUser(selectedUser) {
     this.setState({ selectedUser });
   }
 
@@ -101,7 +101,7 @@ class App extends Component {
 
           <div className="col-sm-8">
             <UserList
-              onUserSelect={this.changeSelectedUser}
+              onUserSelect={this.selectUser}
               users={this.state.users}
               selectedUser={this.state.selectedUser}
             />
