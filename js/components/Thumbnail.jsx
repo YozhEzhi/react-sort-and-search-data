@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Thumbnail = ({ user }) => {
+function Thumbnail(props) {
+  const { user } = props;
   if (!user) return (<h3>Nothing found :(</h3>);
 
   return (
@@ -37,10 +38,6 @@ const Thumbnail = ({ user }) => {
       </div>
     </div>
   );
-};
-
-Thumbnail.propTypes = {
-  user: React.PropTypes.object.isRequired,
 };
 
 export default Thumbnail;

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class SearchBar extends Component {
+class SearchBar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,16 +20,12 @@ class SearchBar extends Component {
       <div className="form-group">
         <input
           className="search-bar form-control"
-          placeholder={this.state.placeholder}
           onChange={event => this.onInputChange(event.target.value)}
+          placeholder={this.state.placeholder}
         />
       </div>
     );
   }
 }
-
-SearchBar.propTypes = {
-  onFilter: React.PropTypes.func.isRequired,
-};
 
 export default SearchBar;

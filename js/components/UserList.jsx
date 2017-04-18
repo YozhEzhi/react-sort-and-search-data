@@ -1,17 +1,18 @@
 import React from 'react';
-import UserListItem from './UserListItem';
 
-const UserList = (props) => {
-  const userItems = props.users.map((user) => {
-    return (
-      <UserListItem
-        isSelected={user === props.selectedUser ? 'info' : ''}
-        onUserSelect={props.onUserSelect}
-        user={user}
-        key={`user-${user.name}`}
-      />
-    );
-  });
+import UserListItem from '../components/UserListItem';
+
+function UserList(props) {
+  const { onUserSelect, selectedUser, users } = props;
+
+  const userItems = users.map(user => (
+    <UserListItem
+      isSelected={user === selectedUser ? 'info' : ''}
+      onUserSelect={onUserSelect}
+      user={user}
+      key={`user-${user.name}`}
+    />
+  ));
 
   return (
     <div>
@@ -31,11 +32,6 @@ const UserList = (props) => {
       </table>
     </div>
   );
-};
-
-UserList.propTypes = {
-  users: React.PropTypes.array.isRequired,
-  onUserSelect: React.PropTypes.func.isRequired,
-};
+}
 
 export default UserList;

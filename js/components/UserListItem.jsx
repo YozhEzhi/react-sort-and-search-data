@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const UserListItem = ({ user, isSelected, onUserSelect }) => {
+function UserListItem(props) {
+  const { user, isSelected, onUserSelect } = props;
+
   return (
     <tr onClick={() => onUserSelect(user)} className={isSelected}>
       <td>
         <img
-          src={`./images/${user.image}.svg`}
-          className="user-image img-responsive"
           alt={user.name}
+          className="user-image img-responsive"
+          src={`./images/${user.image}.svg`}
         />
       </td>
       <td>{user.name}</td>
@@ -18,12 +20,12 @@ const UserListItem = ({ user, isSelected, onUserSelect }) => {
       </td>
     </tr>
   );
-};
+}
 
 UserListItem.propTypes = {
-  isSelected: React.PropTypes.string.isRequired,
-  onUserSelect: React.PropTypes.func.isRequired,
-  user: React.PropTypes.object.isRequired,
+  isSelected: PropTypes.string.isRequired,
+  onUserSelect: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default UserListItem;
